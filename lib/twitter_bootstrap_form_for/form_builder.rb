@@ -93,6 +93,8 @@ class TwitterBootstrapFormFor::FormBuilder < ActionView::Helpers::FormBuilder
   end
 
   INPUTS.each do |input|
+    alias_method "#{input}_orig", input
+
     define_method input do |attribute, *args, &block|
       options = args.extract_options!
       text    = args.any? ? args.shift : ''
@@ -155,6 +157,8 @@ class TwitterBootstrapFormFor::FormControls < ActionView::Helpers::FormBuilder
   attr_reader :object_name
 
   TwitterBootstrapFormFor::FormBuilder::INPUTS.each do |input|
+    alias_method "#{input}_orig", input
+
     define_method input do |attribute, *args, &block|
       options = args.extract_options!
       add_on  = options.delete(:add_on)
